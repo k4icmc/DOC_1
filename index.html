@@ -152,6 +152,16 @@
             animation: shine 3s infinite;
         }
 
+        .btn-password {
+            background: linear-gradient(45deg, #ff6b6b, #ff9e7d);
+            margin-left: 15px;
+        }
+
+        .btn-password:hover {
+            background: linear-gradient(45deg, #ff9e7d, #ff6b6b);
+            box-shadow: 0 8px 25px rgba(255, 158, 125, 0.6);
+        }
+
         .footer {
             margin-top: 2.5rem;
             color: #88c0ff;
@@ -175,6 +185,72 @@
             color: #00e5ff;
         }
 
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #0d1b2a, #1b263b);
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            border: 2px solid #00e5ff;
+            box-shadow: 0 0 30px rgba(0, 229, 255, 0.6);
+            position: relative;
+            animation: modalFadeIn 0.5s ease;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.5rem;
+            color: #ff6b6b;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close-modal:hover {
+            color: #ff9e7d;
+        }
+
+        .modal-image {
+            width: 100%;
+            max-width: 300px;
+            border-radius: 10px;
+            border: 2px solid #00aaff;
+            margin: 1rem 0;
+            box-shadow: 0 0 20px rgba(0, 170, 255, 0.5);
+        }
+
+        .password-display {
+            margin: 1.5rem 0;
+            padding: 1rem;
+            background: rgba(0, 20, 40, 0.6);
+            border-radius: 10px;
+            border: 1px solid #00ccff;
+        }
+
+        .password-text {
+            font-size: 1.2rem;
+            color: #ff9e7d;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
         /* Animações */
         @keyframes fadeIn {
             from {
@@ -184,6 +260,17 @@
             to {
                 opacity: 1;
                 transform: translateY(0);
+            }
+        }
+
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8) translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
             }
         }
 
@@ -223,6 +310,12 @@
             .btn {
                 padding: 0.8rem 2rem;
                 font-size: 1rem;
+                margin: 10px;
+            }
+
+            .btn-container {
+                display: flex;
+                flex-direction: column;
             }
         }
 
@@ -242,6 +335,14 @@
             
             .btn {
                 padding: 0.7rem 1.8rem;
+            }
+
+            .modal-content {
+                padding: 1.5rem;
+            }
+
+            .modal-image {
+                max-width: 250px;
             }
         }
     </style>
@@ -265,11 +366,30 @@
             
             <p class="instructions">Escaneie este QR code com seu dispositivo móvel para acessar o site ou clique no botão abaixo</p>
             
-            <a href="https://hack-hype.vercel.app" class="btn" target="_blank">
-                <i class="fas fa-external-link-alt"></i> Acessar Site
-            </a>
+            <div class="btn-container">
+                <a href="https://hack-hype.vercel.app" class="btn" target="_blank">
+                    <i class="fas fa-external-link-alt"></i> Acessar Site
+                </a>
+                
+                <button class="btn btn-password" id="showPasswordBtn">
+                    <i class="fas fa-key"></i> Mostrar Senha
+                </button>
+            </div>
         </div>
         
+    </div>
+
+    <!-- Modal para mostrar a senha -->
+    <div class="modal" id="passwordModal">
+        <div class="modal-content">
+            <span class="close-modal" id="closeModal">&times;</span>
+            <h2>Senha de Acesso</h2>
+            <img src="https://i.ibb.co/vvs2fhLg/AAAAAA.png" alt="QR Code Hack Hype" alt="Imagem da Senha" class="modal-image">
+            <div class="password-display">
+                <p class="password-text">Senha: <strong>rodou man</strong></p>
+            </div>
+            <p>Use esta senha para acessar o sistema.</p>
+        </div>
     </div>
 
     <!-- Script das partículas -->
@@ -364,6 +484,25 @@
                     }
                 },
                 retina_detect: true
+            });
+
+            // Lógica do modal de senha
+            const modal = document.getElementById('passwordModal');
+            const showPasswordBtn = document.getElementById('showPasswordBtn');
+            const closeModal = document.getElementById('closeModal');
+
+            showPasswordBtn.addEventListener('click', () => {
+                modal.style.display = 'flex';
+            });
+
+            closeModal.addEventListener('click', () => {
+                modal.style.display = 'none';
+            });
+
+            window.addEventListener('click', (event) => {
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                }
             });
         });
     </script>
