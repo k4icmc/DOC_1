@@ -17,15 +17,17 @@
             background: linear-gradient(135deg, #0a0a2a, #0d1b2a, #1b263b);
             color: #ffffff;
             min-height: 100vh;
-            overflow: hidden;
             position: relative;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
+            justify-content: center;
+            padding: 2rem 1rem;
+            overflow-x: hidden;
         }
 
         #particles-js {
-            position: absolute;
+            position: fixed;
             width: 100%;
             height: 100%;
             top: 0;
@@ -39,7 +41,8 @@
             text-align: center;
             padding: 2rem;
             max-width: 600px;
-            width: 90%;
+            width: 100%;
+            margin: 2rem auto;
         }
 
         .header {
@@ -110,15 +113,22 @@
             line-height: 1.6;
         }
 
+        .btn-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
         .btn {
             display: inline-block;
-            margin-top: 1.5rem;
-            padding: 1rem 2.5rem;
+            padding: 1rem 2rem;
             background: linear-gradient(45deg, #0066cc, #00aaff);
             color: white;
             text-decoration: none;
             border-radius: 50px;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: bold;
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -128,6 +138,9 @@
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+            flex: 1;
+            min-width: 200px;
+            text-align: center;
         }
 
         .btn:hover {
@@ -154,7 +167,6 @@
 
         .btn-password {
             background: linear-gradient(45deg, #ff6b6b, #ff9e7d);
-            margin-left: 15px;
         }
 
         .btn-password:hover {
@@ -166,6 +178,9 @@
             margin-top: 2.5rem;
             color: #88c0ff;
             font-size: 0.9rem;
+            text-align: center;
+            width: 100%;
+            padding: 1rem;
         }
 
         .social-icons {
@@ -198,6 +213,7 @@
             justify-content: center;
             align-items: center;
             backdrop-filter: blur(5px);
+            padding: 1rem;
         }
 
         .modal-content {
@@ -205,12 +221,14 @@
             border-radius: 20px;
             padding: 2rem;
             max-width: 500px;
-            width: 90%;
+            width: 100%;
             text-align: center;
             border: 2px solid #00e5ff;
             box-shadow: 0 0 30px rgba(0, 229, 255, 0.6);
             position: relative;
             animation: modalFadeIn 0.5s ease;
+            max-height: 90vh;
+            overflow-y: auto;
         }
 
         .close-modal {
@@ -221,6 +239,7 @@
             color: #ff6b6b;
             cursor: pointer;
             transition: color 0.3s ease;
+            z-index: 101;
         }
 
         .close-modal:hover {
@@ -288,12 +307,22 @@
                 transform: rotate(45deg) translate(-30%, -30%);
             }
             100% {
-                transform: rotate(45deg) translate(30%, 30%);
+                transform: rotate(45deg) translate(30%, 30);
             }
         }
 
         /* Responsividade */
         @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+                justify-content: flex-start;
+            }
+            
+            .container {
+                padding: 1rem;
+                margin: 1rem auto;
+            }
+            
             h1 {
                 font-size: 2.2rem;
             }
@@ -308,14 +337,22 @@
             }
             
             .btn {
-                padding: 0.8rem 2rem;
+                padding: 0.8rem 1.5rem;
                 font-size: 1rem;
-                margin: 10px;
+                min-width: 160px;
             }
 
             .btn-container {
-                display: flex;
                 flex-direction: column;
+                align-items: center;
+            }
+            
+            .logo {
+                font-size: 3rem;
+            }
+            
+            .qr-container {
+                padding: 1.2rem;
             }
         }
 
@@ -325,7 +362,7 @@
             }
             
             .logo {
-                font-size: 2.8rem;
+                font-size: 2.5rem;
             }
             
             .qr-code {
@@ -334,7 +371,9 @@
             }
             
             .btn {
-                padding: 0.7rem 1.8rem;
+                padding: 0.7rem 1.2rem;
+                font-size: 0.9rem;
+                min-width: 140px;
             }
 
             .modal-content {
@@ -343,6 +382,27 @@
 
             .modal-image {
                 max-width: 250px;
+            }
+            
+            .instructions {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 350px) {
+            .qr-code {
+                width: 180px;
+                height: 180px;
+            }
+            
+            h1 {
+                font-size: 1.6rem;
+            }
+            
+            .btn {
+                min-width: 120px;
+                font-size: 0.8rem;
+                padding: 0.6rem 1rem;
             }
         }
     </style>
@@ -377,6 +437,15 @@
             </div>
         </div>
         
+        <div class="footer">
+            <p>© 2023 Hack Hype - Todos os direitos reservados</p>
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-discord"></i></a>
+                <a href="#"><i class="fab fa-github"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
     </div>
 
     <!-- Modal para mostrar a senha -->
@@ -384,7 +453,7 @@
         <div class="modal-content">
             <span class="close-modal" id="closeModal">&times;</span>
             <h2>Senha de Acesso</h2>
-            <img src="https://i.ibb.co/vvs2fhLg/AAAAAA.png" alt="QR Code Hack Hype" alt="Imagem da Senha" class="modal-image">
+            <img src="https://i.ibb.co/vvs2fhLg/AAAAAA.png" alt="Imagem da Senha" class="modal-image">
             <div class="password-display">
                 <p class="password-text">Senha: <strong>rodou man</strong></p>
             </div>
@@ -400,7 +469,7 @@
             particlesJS('particles-js', {
                 particles: {
                     number: {
-                        value: 100,
+                        value: 80,
                         density: {
                             enable: true,
                             value_area: 800
@@ -493,15 +562,18 @@
 
             showPasswordBtn.addEventListener('click', () => {
                 modal.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
             });
 
             closeModal.addEventListener('click', () => {
                 modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
             });
 
             window.addEventListener('click', (event) => {
                 if (event.target === modal) {
                     modal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
                 }
             });
         });
