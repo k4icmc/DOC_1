@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste Interativo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(45deg, #ff8a00, #e52e71);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            color: #ccc;
+            margin-bottom: 1.5rem;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .card h2 {
+            color: #ff8a00;
+            margin-bottom: 1rem;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 1rem;
+            margin: 1.5rem 0;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 50px;
+            background: linear-gradient(45deg, #ff8a00, #e52e71);
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .counter {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        #count {
+            font-size: 2rem;
+            font-weight: bold;
+            min-width: 50px;
+            text-align: center;
+        }
+
+        .color-box {
+            height: 100px;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.5s ease;
+        }
+
+        .slider-container {
+            margin: 1.5rem 0;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            margin: 10px 0;
+        }
+
+        footer {
+            margin-top: 2rem;
+            text-align: center;
+            color: #ccc;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 1rem;
+            }
+            
+            .container {
+                padding: 1.5rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .buttons {
+                flex-direction: column;
+            }
+            
+            button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Documento de Teste</h1>
+            <p class="subtitle">Uma demonstração de HTML, CSS e JavaScript integrados</p>
+        </header>
+        
+        <div class="card">
+            <h2>Contador Interativo</h2>
+            <p>Use os botões para alterar o valor do contador:</p>
+            
+            <div class="counter">
+                <button id="decrement">-</button>
+                <span id="count">0</span>
+                <button id="increment">+</button>
+            </div>
+        </div>
+        
+        <div class="card">
+            <h2>Mudança de Cor</h2>
+            <p>Clique no botão para alterar a cor do quadrado:</p>
+            
+            <button id="changeColor">Mudar Cor</button>
+            
+            <div class="color-box" id="colorBox">
+                <span>Cor Atual</span>
+            </div>
+        </div>
+        
+        <div class="card">
+            <h2>Controlador de Opacidade</h2>
+            <p>Use o controle deslizante para ajustar a opacidade do texto:</p>
+            
+            <div class="slider-container">
+                <input type="range" id="opacitySlider" min="0" max="100" value="100">
+                <span id="sliderValue">100%</span>
+            </div>
+            
+            <p id="opacityText" style="opacity: 1;">Este texto muda de opacidade com o controle deslizante.</p>
+        </div>
+        
+        <footer>
+            <p>Documento criado para testes - © 2023</p>
+        </footer>
+    </div>
+
+    <script>
+        // Contador
+        let count = 0;
+        const countElement = document.getElementById('count');
+        const incrementButton = document.getElementById('increment');
+        const decrementButton = document.getElementById('decrement');
+        
+        incrementButton.addEventListener('click', () => {
+            count++;
+            countElement.textContent = count;
+        });
+        
+        decrementButton.addEventListener('click', () => {
+            count--;
+            countElement.textContent = count;
+        });
+        
+        // Mudança de cor
+        const colorBox = document.getElementById('colorBox');
+        const changeColorButton = document.getElementById('changeColor');
+        
+        changeColorButton.addEventListener('click', () => {
+            const randomColor = `#${Math.floor(Math.random()*16777215).toString(16)}`;
+            colorBox.style.backgroundColor = randomColor;
+        });
+        
+        // Controle de opacidade
+        const opacitySlider = document.getElementById('opacitySlider');
+        const sliderValue = document.getElementById('sliderValue');
+        const opacityText = document.getElementById('opacityText');
+        
+        opacitySlider.addEventListener('input', () => {
+            const value = opacitySlider.value;
+            sliderValue.textContent = `${value}%`;
+            opacityText.style.opacity = value / 100;
+        });
+    </script>
+</body>
+</html>
